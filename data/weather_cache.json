@@ -1,0 +1,15 @@
+{
+  "note": "Known cities: fixed coordinates (avoids ambiguous geocoding, e.g. 'Goa' -> Genoa) + typical Nov-Feb climate used only when the live weather API fails.",
+  "cities": {
+    "Goa": {"lat": 15.4909, "lon": 73.8278, "min_c": 23, "max_c": 32, "rain_chance_pct": 10, "condition": "mainly clear"},
+    "Jaipur": {"lat": 26.9124, "lon": 75.7873, "min_c": 12, "max_c": 27, "rain_chance_pct": 5, "condition": "clear sky"},
+    "Mumbai": {"lat": 19.076, "lon": 72.8777, "min_c": 22, "max_c": 33, "rain_chance_pct": 5, "condition": "partly cloudy"},
+    "Delhi": {"lat": 28.6139, "lon": 77.209, "min_c": 9, "max_c": 24, "rain_chance_pct": 5, "condition": "fog"},
+    "Bengaluru": {"lat": 12.9716, "lon": 77.5946, "min_c": 17, "max_c": 27, "rain_chance_pct": 20, "condition": "partly cloudy"},
+    "Udaipur": {"lat": 24.5854, "lon": 73.7125, "min_c": 12, "max_c": 28, "rain_chance_pct": 5, "condition": "clear sky"},
+    "Kochi": {"lat": 9.9312, "lon": 76.2673, "min_c": 24, "max_c": 31, "rain_chance_pct": 45, "condition": "rain showers"},
+    "Manali": {"lat": 32.2432, "lon": 77.1892, "min_c": -1, "max_c": 13, "rain_chance_pct": 15, "condition": "mainly clear"},
+    "Chennai": {"lat": 13.0827, "lon": 80.2707, "min_c": 23, "max_c": 29, "rain_chance_pct": 55, "condition": "rain showers"},
+    "Varanasi": {"lat": 25.3176, "lon": 82.9739, "min_c": 11, "max_c": 25, "rain_chance_pct": 5, "condition": "fog"}
+  }
+}

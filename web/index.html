@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Trip Planner</title>
+<meta name="description" content="Task 11 - a multi-step AI agent with tools, state, error recovery and human approval.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2213%22 fill=%22none%22 stroke=%22%232DD4BF%22 stroke-width=%223%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%225%22 fill=%22%23FF6B6B%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="logo">◎</div>
+    <div>
+      <h1>Agentic Trip Planner <span class="badge">Task 11</span></h1>
+      <p class="sub">One goal in, a multi-step AI agent out: it plans, calls 6 tools, keeps state, recovers from errors and asks a human before booking.</p>
+    </div>
+  </div>
+  <div class="top-right">
+    <span id="modePill" class="pill">Instant demo</span>
+    <div class="seg speed" role="group" aria-label="Animation speed">
+      <button data-speed="slow">Slow</button><button data-speed="medium" class="on">Medium</button><button data-speed="fast">Fast</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" role="tablist">
+  <button data-tab="overview" class="on">Overview</button>
+  <button data-tab="live">Live Agent</button>
+  <button data-tab="tools">Tools</button>
+  <button data-tab="state">State &amp; History</button>
+  <button data-tab="recovery">Error Recovery</button>
+  <button data-tab="approval">Human Approval</button>
+  <button data-tab="results">Results</button>
+  <button data-tab="how">How it works</button>
+</nav>
+
+<main>
+<!-- 1. OVERVIEW -->
+<section class="view on" id="tab-overview">
+  <div class="hero card" id="hero">
+    <div class="hero-text">
+      <span class="kicker">Mission Control</span>
+      <h2>“Plan a 3-day trip to Goa for 2 people under Rs 15,000 and book the hotel.”</h2>
+      <p>The agent turns that one sentence into a plan, runs it step by step (<b>Thought → Action → Observation</b>), re-plans when the budget breaks, survives a dead weather API, and <b class="amber">pauses for your approval</b> before it spends money.</p>
+      <div class="hero-cta">
+        <button class="btn primary" data-go="live">▶ Watch it run</button>
+        <button class="btn" id="heroTour">Start guided tour</button>
+      </div>
+      <p class="tiny muted">Runs locally · Qwen2.5-0.5B on CPU · no API keys · sample hotel &amp; attraction data</p>
+    </div>
+    <div class="orbit-wrap" aria-hidden="true">
+      <div class="orbit">
+        <svg class="orbit-rings" viewBox="0 0 340 340"><circle cx="170" cy="170" r="140"/><circle cx="170" cy="170" r="92"/></svg>
+        <div class="agent-node">AGENT<small>plan · act · observe</small></div>
+        <div class="spinner-ring" id="orbitRing"></div>
+      </div>
+    </div>
+  </div>
+  <h3 class="section-title">What Task 11 asks → where this agent proves it <span class="muted tiny">(click a card)</span></h3>
+  <div class="req-grid" id="reqGrid"></div>
+</section>
+
+<!-- 2. LIVE AGENT -->
+<section class="view" id="tab-live">
+  <div class="card toolbar" id="liveToolbar">
+    <div class="goal-row">
+      <input id="goal" type="text" maxlength="300" placeholder="Describe your trip goal…" value="Plan a 3-day trip to Jaipur for 2 people under Rs 20,000.">
+      <button class="btn primary" id="runBtn">▶ Run agent</button>
+    </div>
+    <div class="examples" id="examples"></div>
+    <div class="opts">
+      <div class="seg" id="modeSeg" hidden>
+        <button data-mode="demo" class="on">Instant demo</button><button data-mode="live">Run live</button>
+      </div>
+      <label id="simWrap" hidden>Simulate failure
+        <select id="simSel"><option value="">none</option><option value="weather_down">weather API down</option>
+          <option value="no_hotels">no hotels under budget</option><option value="bad_args">invalid arguments</option></select>
+      </label>
+      <span class="tiny muted" id="modeHint">Instant demo replays real precomputed runs. Start <code>python app.py</code> to unlock “Run live”.</span>
+    </div>
+  </div>
+  <div class="working" id="working" hidden><span class="dot-pulse"></span> Agent working… (CPU model, ~10-30 s per LLM step)</div>
+  <div class="grid3" id="liveGrid">
+    <div class="card panel" id="timelinePanel">
+      <div class="panel-head"><h4>Plan timeline</h4><span class="chip" id="planSource">–</span></div>
+      <ol class="timeline" id="timeline"><li class="empty muted">Pick an example to start.</li></ol>
+    </div>
+    <div class="card panel" id="tracePanel">
+      <div class="panel-head"><h4>Agent trace</h4><span class="tiny muted">Thought → Action → Observation</span></div>
+      <div class="trace" id="trace"></div>
+    </div>
+    <div class="card panel" id="statePanel">
+      <div class="panel-head"><h4>AgentState</h4><button class="btn sm" id="viewJson">View JSON</button></div>
+      <div id="stateView" class="state-view muted">No run yet.</div>
+    </div>
+  </div>
+  <div class="card summary" id="summary" hidden></div>
+</section>
+
+<!-- 3. TOOLS -->
+<section class="view" id="tab-tools">
+  <p class="lead">Six tools, each with a <b>Pydantic argument schema</b>. Bad arguments are rejected before the tool runs. Press <b>Run</b> to call one tool on its own.</p>
+  <div class="tool-grid" id="toolGrid"></div>
+</section>
+
+<!-- 4. STATE & HISTORY -->
+<section class="view" id="tab-state">
+  <p class="lead">Every run is one <code>AgentState</code> saved as <code>state/&lt;run_id&gt;.json</code> after each step, so it can be listed, replayed and <b>resumed after approval</b>.</p>
+  <div class="split">
+    <div class="card panel"><div class="panel-head"><h4>Saved runs</h4><span class="chip" id="runsSrc">demo</span></div><ul class="runs" id="runList"></ul></div>
+    <div class="card panel" id="replayPanel"><div class="panel-head"><h4>Step history</h4><button class="btn sm" id="replayJson" hidden>View JSON</button></div><div id="replay" class="muted">Open a run to replay its history.</div></div>
+  </div>
+</section>
+
+<!-- 5. ERROR RECOVERY -->
+<section class="view" id="tab-recovery">
+  <p class="lead">When a tool fails the agent <b>retries once</b>, then tries an <b>alternative</b>, then <b>skips</b> an optional step or stops politely, and logs every attempt.</p>
+  <div class="card">
+    <div class="sim-buttons" id="simButtons">
+      <button class="btn danger" data-sim="weather_down">☁ Weather API down</button>
+      <button class="btn danger" data-sim="no_hotels">🏨 No hotels under budget</button>
+      <button class="btn danger" data-sim="bad_args">⚠ Invalid arguments</button>
+      <button class="btn danger" data-sim="unknown">❓ Unknown city</button>
+    </div>
+    <div class="pipeline" id="pipeline">
+      <div class="pnode" data-k="original"><b>1</b><span>Call tool</span></div><i></i>
+      <div class="pnode" data-k="retry"><b>2</b><span>Retry once</span></div><i></i>
+      <div class="pnode" data-k="alternative"><b>3</b><span>Alternative</span></div><i></i>
+      <div class="pnode" data-k="outcome"><b>4</b><span>Outcome</span></div>
+    </div>
+    <div class="reclog" id="recLog"><span class="muted">Pick a failure to simulate.</span></div>
+  </div>
+  <div class="card">
+    <h4>Recovery rules (agent.py)</h4>
+    <table class="tbl"><thead><tr><th>Failure</th><th>Retry</th><th>Alternative</th><th>If still failing</th></tr></thead><tbody>
+      <tr><td>Weather API timeout / down</td><td>once</td><td>cached typical-climate table</td><td>skip (optional step)</td></tr>
+      <tr><td>No hotels under the limit</td><td>once</td><td>raise nightly limit by 20%</td><td>stop: explain</td></tr>
+      <tr><td>Invalid arguments (Pydantic)</td><td>once, with args rebuilt from state</td><td>–</td><td>stop: explain</td></tr>
+      <tr><td>Unknown city</td><td>once</td><td>– (no data)</td><td>stop politely + list cities</td></tr>
+      <tr><td>Total over budget</td><td colspan="2">re-plan: cheaper hotel → budget daily spend, then recalculate</td><td>warn the user</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- 6. HUMAN APPROVAL -->
+<section class="view" id="tab-approval">
+  <p class="lead"><code>book_hotel</code> is an <b>important action</b>. The agent pauses with status <span class="amber">waiting_for_approval</span> and a summary. Only <b>Approve</b> runs it; <b>Reject</b> ends the run politely with nothing booked.</p>
+  <div class="split">
+    <div class="card panel"><div class="panel-head"><h4>Pending approvals</h4><span class="chip" id="apprSrc">demo</span></div><ul class="runs" id="apprList"></ul></div>
+    <div class="card panel" id="apprPanel"><div class="panel-head"><h4>Booking request</h4></div><div id="apprView" class="muted">Select a pending approval.</div></div>
+  </div>
+  <div class="flow card">
+    <div class="fbox">Agent reaches <code>book_hotel</code></div><i>→</i>
+    <div class="fbox amber-b">PAUSE · state saved<br><small>waiting_for_approval</small></div><i>→</i>
+    <div class="fcol"><div class="fbox teal-b">Approve → book_hotel runs → <code>data/bookings.json</code> → summary</div>
+      <div class="fbox coral-b">Reject → nothing booked → polite summary · status <code>rejected</code></div></div>
+  </div>
+</section>
+
+<!-- 7. RESULTS -->
+<section class="view" id="tab-results">
+  <div class="tiles" id="tiles"></div>
+  <div class="split even">
+    <div class="card panel"><div class="panel-head"><h4>Steps &amp; recoveries per test goal</h4></div><div class="chart-box"><canvas id="chart"></canvas></div></div>
+    <div class="card panel"><div class="panel-head"><h4>Key findings</h4></div><ul class="findings" id="findings"></ul></div>
+  </div>
+  <div class="card"><div class="panel-head"><h4>evaluate.py → results.md</h4></div><div class="tbl-wrap"><table class="tbl" id="resTable"></table></div></div>
+</section>
+
+<!-- 8. HOW IT WORKS -->
+<section class="view" id="tab-how">
+  <div class="card" id="diagram">
+    <h4>Workflow</h4>
+    <div class="wf">
+      <div class="wbox">Goal</div><i>→</i>
+      <div class="wbox llm">1 · Understand goal<small>LLM → JSON, checked by rules</small></div><i>→</i>
+      <div class="wbox llm">2 · Plan<small>LLM → tool list · fallback plan</small></div><i>→</i>
+      <div class="wbox loop">Executor loop (max 10)<small>Thought → Action → Observation</small><small class="coral">fail → retry → alternative → skip</small></div><i>→</i>
+      <div class="wbox">Over budget?<small>yes → re-plan → recalc</small></div><i>→</i>
+      <div class="wbox gate">Approval gate<small>book_hotel waits for a human</small></div><i>→</i>
+      <div class="wbox llm">Summary<small>LLM, checked against facts</small></div>
+    </div>
+    <p class="tiny muted">State is saved to <code>state/&lt;run_id&gt;.json</code> after every step. Full diagram + example trace: <a id="docsLink" href="https://github.com/Krishna141414/agentic-trip-planner/blob/main/docs/workflow.md" target="_blank" rel="noopener">docs/workflow.md</a></p>
+  </div>
+  <div class="card"><h4>Tools</h4><div class="tbl-wrap"><table class="tbl" id="howTools"></table></div></div>
+  <div class="snips" id="snips"></div>
+  <div class="card"><h4>Limitations</h4><ul class="findings">
+    <li>Small local model (Qwen2.5-0.5B, CPU): it extracts the goal well, but its plans and numbers are checked by rules and a fixed fallback plan is used when it slips.</li>
+    <li>Hotels and attractions are <b>sample data</b> (10 Indian cities). Bookings are written to a local JSON file, so no real money moves.</li>
+    <li>Weather is live (Open-Meteo); the fallback is a typical-climate table, not a real forecast.</li>
+    <li>One room per booking, fixed daily-spend estimate, trips start one week from today.</li>
+  </ul></div>
+</section>
+</main>
+
+<!-- approval modal -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" id="modalCard">
+    <div class="modal-head"><span class="pill amber-pill">⏸ waiting_for_approval</span><button class="x" id="modalX" aria-label="Close">×</button></div>
+    <div id="modalBody"></div>
+    <div class="modal-actions" id="modalActions">
+      <button class="btn reject" id="rejectBtn">✕ Reject</button>
+      <button class="btn approve" id="approveBtn">✓ Approve booking</button>
+    </div>
+  </div>
+</div>
+<!-- JSON modal -->
+<div class="modal" id="jsonModal" hidden><div class="modal-card wide"><div class="modal-head"><b id="jsonTitle">AgentState</b><button class="x" id="jsonX" aria-label="Close">×</button></div><pre class="json" id="jsonPre"></pre></div></div>
+
+<!-- guided tour -->
+<div class="spot" id="spot" hidden></div>
+<div class="caption" id="caption" hidden><span class="chip req" id="capReq"></span><p id="capText"></p></div>
+<div class="tourbar" id="tourbar">
+  <button class="btn primary sm" id="tourStart">▶ Start Tour</button>
+  <div class="tour-ctl" id="tourCtl" hidden>
+    <button class="btn sm" id="tourBack">◀ Back</button>
+    <button class="btn sm" id="tourPlay">⏸ Pause</button>
+    <button class="btn sm" id="tourNext">Next ▶</button>
+    <span class="tour-count" id="tourCount">1 / 1</span>
+    <div class="seg speed sm"><button data-speed="slow">Slow</button><button data-speed="medium" class="on">Medium</button><button data-speed="fast">Fast</button></div>
+    <button class="btn sm" id="tourExit">Exit</button>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

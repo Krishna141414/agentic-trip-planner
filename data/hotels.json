@@ -1,0 +1,25 @@
+{
+  "note": "SAMPLE DATA - fictional hotels for demo purposes only. Prices in INR per night.",
+  "hotels": [
+    {"id": "H01", "name": "Palm Shore Resort", "city": "Goa", "area": "Calangute", "price_per_night": 5200, "max_guests": 3, "rating": 4.4},
+    {"id": "H02", "name": "Sunset Shack Stay", "city": "Goa", "area": "Anjuna", "price_per_night": 2800, "max_guests": 2, "rating": 4.1},
+    {"id": "H03", "name": "Fort Aguada Grand", "city": "Goa", "area": "Candolim", "price_per_night": 9800, "max_guests": 4, "rating": 4.7},
+    {"id": "H04", "name": "Pink City Haveli", "city": "Jaipur", "area": "Old City", "price_per_night": 3600, "max_guests": 3, "rating": 4.5},
+    {"id": "H05", "name": "Amber View Palace", "city": "Jaipur", "area": "Amer Road", "price_per_night": 7400, "max_guests": 4, "rating": 4.6},
+    {"id": "H06", "name": "Marine Drive Inn", "city": "Mumbai", "area": "Churchgate", "price_per_night": 6900, "max_guests": 2, "rating": 4.2},
+    {"id": "H07", "name": "Bandra Bay Suites", "city": "Mumbai", "area": "Bandra", "price_per_night": 11500, "max_guests": 4, "rating": 4.6},
+    {"id": "H08", "name": "Connaught Comfort", "city": "Delhi", "area": "Connaught Place", "price_per_night": 4800, "max_guests": 3, "rating": 4.0},
+    {"id": "H09", "name": "Lodhi Garden Hotel", "city": "Delhi", "area": "Lodhi Colony", "price_per_night": 8200, "max_guests": 2, "rating": 4.5},
+    {"id": "H10", "name": "Garden City Residency", "city": "Bengaluru", "area": "Indiranagar", "price_per_night": 4300, "max_guests": 3, "rating": 4.3},
+    {"id": "H11", "name": "Tech Park Stay", "city": "Bengaluru", "area": "Whitefield", "price_per_night": 3100, "max_guests": 2, "rating": 3.9},
+    {"id": "H12", "name": "Lake Pichola Retreat", "city": "Udaipur", "area": "Lal Ghat", "price_per_night": 6500, "max_guests": 3, "rating": 4.8},
+    {"id": "H13", "name": "City Palace Lodge", "city": "Udaipur", "area": "Old City", "price_per_night": 2900, "max_guests": 2, "rating": 4.2},
+    {"id": "H14", "name": "Backwater Bliss", "city": "Kochi", "area": "Fort Kochi", "price_per_night": 4100, "max_guests": 4, "rating": 4.4},
+    {"id": "H15", "name": "Spice Coast Hotel", "city": "Kochi", "area": "Ernakulam", "price_per_night": 3300, "max_guests": 2, "rating": 4.0},
+    {"id": "H16", "name": "Snow Peak Cottage", "city": "Manali", "area": "Old Manali", "price_per_night": 3800, "max_guests": 4, "rating": 4.5},
+    {"id": "H17", "name": "Pine Valley Camp", "city": "Manali", "area": "Vashisht", "price_per_night": 2200, "max_guests": 3, "rating": 4.1},
+    {"id": "H18", "name": "Ganga Ghat Guesthouse", "city": "Varanasi", "area": "Assi Ghat", "price_per_night": 2500, "max_guests": 2, "rating": 4.3},
+    {"id": "H19", "name": "Marina Bay Chennai", "city": "Chennai", "area": "Marina Beach", "price_per_night": 5600, "max_guests": 3, "rating": 4.2},
+    {"id": "H20", "name": "Mylapore Heritage Inn", "city": "Chennai", "area": "Mylapore", "price_per_night": 3400, "max_guests": 2, "rating": 4.0}
+  ]
+}

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+# runtime files
+state/
+data/bookings.json
+# model cache lives in %USERPROFILE%\.cache\huggingface (never in the repo)
+.cache/
+*.safetensors
+.vscode/
+.claude/

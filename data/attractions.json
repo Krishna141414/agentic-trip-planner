@@ -1,0 +1,75 @@
+{
+  "note": "SAMPLE DATA - simplified attraction list for demo purposes. Entry fees in INR per person (approximate).",
+  "attractions": {
+    "Goa": [
+      {"name": "Baga & Calangute Beach", "type": "beach", "indoor": false, "rating": 4.6, "entry_inr": 0, "best_time": "evening"},
+      {"name": "Basilica of Bom Jesus", "type": "heritage", "indoor": true, "rating": 4.7, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Fort Aguada", "type": "fort", "indoor": false, "rating": 4.5, "entry_inr": 50, "best_time": "afternoon"},
+      {"name": "Fontainhas Latin Quarter", "type": "walk", "indoor": false, "rating": 4.4, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Goa Science Centre", "type": "museum", "indoor": true, "rating": 4.1, "entry_inr": 60, "best_time": "afternoon"}
+    ],
+    "Jaipur": [
+      {"name": "Amber Fort", "type": "fort", "indoor": false, "rating": 4.8, "entry_inr": 200, "best_time": "morning"},
+      {"name": "City Palace", "type": "palace", "indoor": true, "rating": 4.6, "entry_inr": 300, "best_time": "afternoon"},
+      {"name": "Hawa Mahal", "type": "heritage", "indoor": false, "rating": 4.5, "entry_inr": 50, "best_time": "morning"},
+      {"name": "Albert Hall Museum", "type": "museum", "indoor": true, "rating": 4.4, "entry_inr": 40, "best_time": "afternoon"},
+      {"name": "Nahargarh Fort sunset", "type": "viewpoint", "indoor": false, "rating": 4.5, "entry_inr": 50, "best_time": "evening"}
+    ],
+    "Mumbai": [
+      {"name": "Gateway of India", "type": "heritage", "indoor": false, "rating": 4.6, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya", "type": "museum", "indoor": true, "rating": 4.6, "entry_inr": 100, "best_time": "afternoon"},
+      {"name": "Marine Drive", "type": "walk", "indoor": false, "rating": 4.7, "entry_inr": 0, "best_time": "evening"},
+      {"name": "Elephanta Caves", "type": "heritage", "indoor": false, "rating": 4.4, "entry_inr": 40, "best_time": "morning"},
+      {"name": "Colaba Causeway Market", "type": "market", "indoor": false, "rating": 4.2, "entry_inr": 0, "best_time": "afternoon"}
+    ],
+    "Delhi": [
+      {"name": "Red Fort", "type": "fort", "indoor": false, "rating": 4.5, "entry_inr": 50, "best_time": "morning"},
+      {"name": "Qutub Minar", "type": "heritage", "indoor": false, "rating": 4.6, "entry_inr": 40, "best_time": "morning"},
+      {"name": "Humayun's Tomb", "type": "heritage", "indoor": false, "rating": 4.6, "entry_inr": 40, "best_time": "afternoon"},
+      {"name": "National Museum", "type": "museum", "indoor": true, "rating": 4.4, "entry_inr": 20, "best_time": "afternoon"},
+      {"name": "Chandni Chowk food walk", "type": "food", "indoor": false, "rating": 4.5, "entry_inr": 0, "best_time": "evening"}
+    ],
+    "Bengaluru": [
+      {"name": "Lalbagh Botanical Garden", "type": "garden", "indoor": false, "rating": 4.5, "entry_inr": 30, "best_time": "morning"},
+      {"name": "Bangalore Palace", "type": "palace", "indoor": true, "rating": 4.3, "entry_inr": 230, "best_time": "afternoon"},
+      {"name": "Cubbon Park", "type": "garden", "indoor": false, "rating": 4.6, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Visvesvaraya Museum", "type": "museum", "indoor": true, "rating": 4.4, "entry_inr": 85, "best_time": "afternoon"},
+      {"name": "Church Street evening", "type": "food", "indoor": false, "rating": 4.3, "entry_inr": 0, "best_time": "evening"}
+    ],
+    "Udaipur": [
+      {"name": "City Palace Udaipur", "type": "palace", "indoor": true, "rating": 4.7, "entry_inr": 300, "best_time": "morning"},
+      {"name": "Lake Pichola boat ride", "type": "lake", "indoor": false, "rating": 4.7, "entry_inr": 400, "best_time": "evening"},
+      {"name": "Jagdish Temple", "type": "temple", "indoor": true, "rating": 4.5, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Sajjangarh Monsoon Palace", "type": "viewpoint", "indoor": false, "rating": 4.4, "entry_inr": 100, "best_time": "evening"},
+      {"name": "Bagore Ki Haveli show", "type": "culture", "indoor": true, "rating": 4.5, "entry_inr": 150, "best_time": "evening"}
+    ],
+    "Kochi": [
+      {"name": "Chinese Fishing Nets", "type": "heritage", "indoor": false, "rating": 4.3, "entry_inr": 0, "best_time": "evening"},
+      {"name": "Mattancherry Palace", "type": "museum", "indoor": true, "rating": 4.4, "entry_inr": 5, "best_time": "morning"},
+      {"name": "Jew Town & Paradesi Synagogue", "type": "heritage", "indoor": true, "rating": 4.4, "entry_inr": 10, "best_time": "afternoon"},
+      {"name": "Kathakali performance", "type": "culture", "indoor": true, "rating": 4.6, "entry_inr": 400, "best_time": "evening"},
+      {"name": "Backwater day cruise", "type": "lake", "indoor": false, "rating": 4.6, "entry_inr": 800, "best_time": "morning"}
+    ],
+    "Manali": [
+      {"name": "Solang Valley", "type": "nature", "indoor": false, "rating": 4.6, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Hadimba Devi Temple", "type": "temple", "indoor": true, "rating": 4.5, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Old Manali cafes", "type": "food", "indoor": true, "rating": 4.4, "entry_inr": 0, "best_time": "evening"},
+      {"name": "Jogini Waterfall trek", "type": "nature", "indoor": false, "rating": 4.5, "entry_inr": 0, "best_time": "afternoon"},
+      {"name": "Himachal Culture Museum", "type": "museum", "indoor": true, "rating": 4.0, "entry_inr": 20, "best_time": "afternoon"}
+    ],
+    "Chennai": [
+      {"name": "Marina Beach", "type": "beach", "indoor": false, "rating": 4.4, "entry_inr": 0, "best_time": "evening"},
+      {"name": "Kapaleeshwarar Temple", "type": "temple", "indoor": true, "rating": 4.7, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Government Museum", "type": "museum", "indoor": true, "rating": 4.3, "entry_inr": 15, "best_time": "afternoon"},
+      {"name": "Fort St. George", "type": "fort", "indoor": true, "rating": 4.2, "entry_inr": 25, "best_time": "morning"},
+      {"name": "DakshinaChitra", "type": "culture", "indoor": false, "rating": 4.5, "entry_inr": 150, "best_time": "afternoon"}
+    ],
+    "Varanasi": [
+      {"name": "Ganga Aarti at Dashashwamedh Ghat", "type": "culture", "indoor": false, "rating": 4.9, "entry_inr": 0, "best_time": "evening"},
+      {"name": "Sunrise boat ride", "type": "lake", "indoor": false, "rating": 4.8, "entry_inr": 300, "best_time": "morning"},
+      {"name": "Kashi Vishwanath Temple", "type": "temple", "indoor": true, "rating": 4.7, "entry_inr": 0, "best_time": "morning"},
+      {"name": "Sarnath", "type": "heritage", "indoor": false, "rating": 4.6, "entry_inr": 25, "best_time": "afternoon"},
+      {"name": "Bharat Kala Bhavan Museum", "type": "museum", "indoor": true, "rating": 4.2, "entry_inr": 20, "best_time": "afternoon"}
+    ]
+  }
+}
