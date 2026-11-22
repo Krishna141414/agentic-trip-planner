@@ -10,6 +10,20 @@ Everything runs locally: a small local LLM (Qwen2.5-0.5B-Instruct on CPU), no AP
 
 Full details: **[docs/workflow.md](docs/workflow.md)** (diagrams, tool table, state fields, recovery rules, approval flow, full example trace).
 
+## Preview
+
+| Overview | Live Agent |
+|---|---|
+| ![Overview](screenshots/overview.png) | ![Live Agent](screenshots/live-agent.png) |
+| **Error Recovery** | **Human Approval** |
+| ![Error Recovery](screenshots/error-recovery.png) | ![Human Approval](screenshots/human-approval.png) |
+| **State & History** | **Results** |
+| ![State & History](screenshots/state-history.png) | ![Results](screenshots/results.png) |
+| **Tools** | **Guided Tour** |
+| ![Tools](screenshots/tools.png) | ![Guided Tour](screenshots/tour.png) |
+
+More: [How it works](screenshots/how-it-works.png)
+
 ## Workflow
 
 ```mermaid
